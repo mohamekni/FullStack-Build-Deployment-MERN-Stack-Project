@@ -1,7 +1,7 @@
 import { useState } from "react"
 import img1 from "../assets/img2.jpg";
 import { Link } from "react-router-dom";
-import { Loader2, Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react";
+import {Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react";
 
 const Login = () => {
     const [isLoginState, setIsLoginState] = useState(true)
