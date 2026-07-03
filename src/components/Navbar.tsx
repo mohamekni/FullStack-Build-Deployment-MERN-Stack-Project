@@ -1,4 +1,4 @@
-import { ScanBarcode, SearchIcon, Store } from "lucide-react";
+import { ChevronDownIcon, MenuIcon, ScanBarcode, SearchIcon, ShoppingCartIcon, SpaceIcon, Store, UserIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -35,6 +35,52 @@ const Navbar = () => {
                         className="w-full pl-8 p-2 bg-orange-50 rounded-full ring ring-app-orange/15 focus:ring-app-orange/30" />
                     </div>
                 </form>
+                <div className="flex items-center gap-3">
+                    <button className="relative p-2 rounded-xl" onClick={()=>setIsCartOpen(true)}>
+                        <ShoppingCartIcon className="size-5 text-zinc-900"/>
+                        {cartCount > 0 && <span className="absolute -top-1 -right-1 size-4 bg-app-orange text-white text-[10px] rounded-full flex-center"> {cartCount} </span> }
+                    </button>
+                        <div className="relative">
+                            {user ? (
+                                <button className="flex items-center gap-2 p-2">
+                                            <div  className="size-7 rounded-full bg-green-950 text-white flex-center">
+                                                {user.name.charAt(0).toUpperCase()}
+
+                                            </div>
+                                            <ChevronDownIcon className="size-3 text-zinc-500"/>
+                                </button>
+                            )
+                            :(
+                                <div className="flex-center gap-2">
+                                    <Link to="/login" className="hidden md:flex items-center gap-2 px-4 py-2 
+                                    text-sm font-medium text-white bg-green-950 rounded-full hover:bg-green-950-light transition-colors
+                                    ">
+                                    <UserIcon size={16} /> Sign In
+                                    </Link> 
+                                    {userMenuOpen ? <XIcon className="md:hidden" onClick={()=> setUserMenuOpen(!userMenuOpen)}/> :
+                                    <MenuIcon className="md:hidden" 
+                                    onClick={()=>
+                                        setUserMenuOpen(!userMenuOpen)}/>}
+                                </div>
+                            )}
+                            {userMenuOpen && (
+                                <>
+                                <div className="fixed inset-0 z-40" onClick={()=>
+                                    setUserMenuOpen(false)} />
+                                    <div className="absolute right-0 mt-2.5 w-56
+                                    bg-white rounded-xl shadow-lg border border-app-border py-2 z-50 animate-fade-in">
+                                                {user && (
+                                                    <div className="px-4 py-2 border-b
+                                                    border-app-border">
+                                                        <p>{user?.name}</p>
+                                                    </div>
+                                                )}
+                                    </div>
+                                
+                                </>
+                            )}
+                        </div>
+                </div>
             </div>
         </div>
     </nav>
